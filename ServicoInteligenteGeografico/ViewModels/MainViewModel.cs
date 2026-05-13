@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 public class MainViewModel : BaseViewModel
 {
-
+    private readonly LocalizacaoRepository _localizacaoRepo;
     private readonly MapasApiService _mapasApiService;
 
 
@@ -128,6 +128,7 @@ public class MainViewModel : BaseViewModel
     public MainViewModel()
     {
         _mapasApiService = new MapasApiService();
+        _localizacaoRepo = new LocalizacaoRepository();
 
         ApiListarTodasCommand = new RelayCommand(async () => await CarregarRankingAsync());
         ApiBuscarPorIdCommand = new RelayCommand(async () => await BuscarAsync());
@@ -153,7 +154,10 @@ public class MainViewModel : BaseViewModel
 
             // Adiciona os itens retornados pela API à coleção de dados
             foreach (var item in listaDeBanco)
+            {
                 Dados.Add(item);
+                await _localizacaoRepo.SalvarAsync(item);
+            }
 
             if (Dados.Count == 0)
                 MessageBox.Show("A API retornou uma lista vazia.");
