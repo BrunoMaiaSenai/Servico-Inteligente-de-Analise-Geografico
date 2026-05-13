@@ -156,7 +156,6 @@ public class MainViewModel : BaseViewModel
             foreach (var item in listaDeBanco)
             {
                 Dados.Add(item);
-                await _localizacaoRepo.SalvarAsync(item);
             }
 
             if (Dados.Count == 0)
@@ -237,7 +236,10 @@ public class MainViewModel : BaseViewModel
 
             // Adiciona os itens retornados pela API à coleção de resultados
             foreach (var item in lista)
+            {
                 Resultados.Add(item);
+                await _localizacaoRepo.SalvarAsync(item);
+            }
 
             AplicarFiltro();
             LogService.RegistrarLog("Ranking atualizado.");
