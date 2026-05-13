@@ -28,7 +28,10 @@ Um Serviço de Análise de Dados Geográficos especializado no processamento de 
 **[RNF02] Performance:** O cálculo de distância e agrupamento deve ser otimizado para respostas em tempo real. <br>
 **[RNF03] Escalabilidade:** A arquitetura de microserviço deve suportar o aumento de volume de dados geográficos. <br>
 
-### 4 - 📂 Estrutura do Projeto:
+### 4 - Como Funciona o projeto?:
+<img width="1920" height="1080" alt="Serviço Inteligente de Análise Geográfico" src="https://github.com/user-attachments/assets/c0ec2f81-962f-4fbc-8eab-5c7d3c37a4af" />
+
+### 5 - 📂 Estrutura do Projeto:
 
 **Configuração do Firebase ao clonar o repositório**
 
@@ -70,27 +73,27 @@ O arquivo já está listado no .gitignore do projeto, então não há risco de s
 │   └── App.xaml.cs
 └── AssemblyInfo.cs
 ```
-## 5 - Dificuldades encontradas no decorrer do projeto
+## 6 - Dificuldades encontradas no decorrer do projeto
 
-**5.1 - Pacotes do Firebase não instalados** <br>
+**6.1 - Pacotes do Firebase não instalados** <br>
 Após adicionar os arquivos de integração ao projeto WPF, a compilação falhou com erros do tipo namespace 'FirebaseAdmin' não pode ser encontrado. O motivo foi que os pacotes NuGet do Firebase ainda não haviam sido instalados no projeto.
 Solução: executar os comandos abaixo no terminal dentro da pasta do projeto:
 bashcd ServicoInteligenteGeografico
 dotnet add package FirebaseAdmin --version 3.1.0
 dotnet add package FirebaseDatabase.net --version 4.2.0
 
-**5.2 - Terminal apontando para a pasta errada** <br>
+**6.2 - Terminal apontando para a pasta errada** <br>
 Ao tentar instalar os pacotes pelo terminal do Visual Studio, o comando retornou o erro Não foi possível encontrar nenhum projeto. O terminal estava na pasta raiz do repositório, e não dentro da pasta do projeto .csproj.
 Solução: navegar para a pasta correta com cd ServicoInteligenteGeografico antes de rodar os comandos.
 
 **formato da API**
 Formato inesperado da API do Squad 2 — Ao tentar consumir a API, o código quebrava porque esperava receber um array [...] diretamente, mas a API retornava um objeto wrapper { "mensagem": "...", "localizacoes": [...] }. Foi necessário criar a classe RespostaMapas para tratar esse formato.
 
-**5.3 - Dificuldades Encontradas e Soluções (Otavio)**
+**6.3 - Dificuldades Encontradas e Soluções (Otavio)**
 
 Durante o desenvolvimento da minha parte no projeto, acabei esbarrando em alguns desafios técnicos bem interessantes que serviram de aprendizado:
 
-**5.3 - Dificuldades Encontradas e Soluções (Bruno Maia)**
+**6.3 - Dificuldades Encontradas e Soluções (Bruno Maia)**
 No início da implantação, houve dificuldade no entendimento estrutural do projeto. Devido à necessidade de integração com outros projetos, foi necessária uma pesquisa mais aprofundada para definir e organizar adequadamente a estrutura de pastas e classes.
 
 Também houve dificuldade relacionada ao tempo disponível para implementar o retorno dos registros recebidos com sucesso pela Squad 2. Como essa funcionalidade exigia implementação em ambas as pontas (Projeto Squad 3 e Squad 2), a proposta de retorno dos registros integrados foi apresentada à Squad 2. Contudo, em razão do prazo de entrega do projeto, não foi possível concluir essa implementação dentro do período previsto.
