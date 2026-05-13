@@ -25,29 +25,27 @@ namespace ServicoInteligenteGeografico.Data
         {
             if (_client == null)
             {
-                // Inicializa a autenticação com o arquivo de chave de serviço
                 if (FirebaseApp.DefaultInstance == null)
                 {
                     FirebaseApp.Create(new AppOptions
                     {
-                        // Lê o arquivo serviceAccountKey.json que fica na raiz do projeto
                         Credential = GoogleCredential.FromFile("serviceAccountKey.json")
                     });
                 }
 
-                // Cria o cliente apontando para a URL do banco
                 _client = new FirebaseClient(FirebaseUrl, new FirebaseOptions
                 {
+                    // If the library supports it, passing the credential directly is cleaner.
+                    // Otherwise, using the Admin SDK to get the Access Token is more standard than a Custom Token:
                     AuthTokenAsyncFactory = async () =>
                     {
-                        // Gera um token de autenticação usando o Admin 
-                        string token = await FirebaseAuth.DefaultInstance
-                            .CreateCustomTokenAsync("servico-geografico");
-                        return token;
+                        var credential = GoogleCredential.FromFile("serviceAccountKey.json")
+                                            .CreateScoped("https://www.googleapis.com/auth/userinfo.email",
+                                                          "https://www.googleapis.com/auth/firebase.database");
+                        return await credential.UnderlyingCredential.GetAccessTokenForRequestAsync();
                     }
                 });
             }
-
             return _client;
         }
     }
